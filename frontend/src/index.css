@@ -1,0 +1,64 @@
+/* ---------------------------------------------------------------------
+   Design tokens — identidade visual de "livro-caixa" (ledger):
+   papel esverdeado, tinta escura, verde para receita, tijolo para despesa.
+   --------------------------------------------------------------------- */
+:root {
+  --color-bg: #eceee2;
+  --color-surface: #fffdf7;
+  --color-ink: #202b22;
+  --color-muted: #5c6b5d;
+  --color-border: #d7dbc4;
+
+  --color-primary: #2f5233;
+  --color-primary-dark: #1f3a24;
+  --color-positive: #2f6f4e;
+  --color-negative: #a8452f;
+  --color-warn-bg: #f3e2c4;
+  --color-warn-text: #7a4d13;
+
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(32, 43, 34, 0.06), 0 4px 14px rgba(32, 43, 34, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--color-primary-dark);
+  margin: 0 0 0.4em;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
