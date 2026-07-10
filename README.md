@@ -1,5 +1,7 @@
 # Controle de Gastos Residenciais
 
+![CI](https://github.com/<usuario>/<repo>/actions/workflows/ci.yml/badge.svg)
+
 Sistema simples de controle de gastos residenciais, com cadastro de pessoas,
 cadastro de transações (receitas/despesas) e consulta de totais.
 
@@ -129,3 +131,16 @@ Nem toda operação pode (ou deve) ser O(1):
 | GET    | `/api/transacoes`        | Lista transações (filtro opcional `?pessoaId=`) |
 | POST   | `/api/transacoes`        | Cadastra uma transação                  |
 | GET    | `/api/relatorios/totais` | Totais por pessoa + total geral         |
+
+## Integração Contínua (CI)
+
+O workflow em `.github/workflows/ci.yml` roda a cada push/PR para a `master`,
+com dois jobs independentes em paralelo:
+
+- **backend**: `dotnet restore` → `dotnet build` → `dotnet test`
+  (`GastosResidenciais.Api.Tests`), usando .NET 8.
+- **frontend**: `npm ci` → `npm run build` (`tsc -b && vite build`), cobrindo
+  também o type-check do TypeScript.
+
+Basta ajustar `<usuario>/<repo>` no badge no topo deste arquivo depois de
+subir o projeto para o GitHub.
