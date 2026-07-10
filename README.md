@@ -8,7 +8,7 @@
 ![SQLite](https://img.shields.io/badge/SQLite-banco%20local-003B57?logo=sqlite&logoColor=white)
 ![xUnit](https://img.shields.io/badge/xUnit-testes%20automatizados-blueviolet)
 
-Sistema simples de controle de gastos residenciais. Permite cadastrar as
+Sistema de controle de gastos residenciais. Permite cadastrar as
 pessoas da casa, registrar as transações de cada uma (receitas e despesas)
 e consultar os totais, tudo em uma interface única e direta.
 
