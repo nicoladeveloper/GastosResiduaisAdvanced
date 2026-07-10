@@ -11,14 +11,11 @@ public class PessoasControllerTests
     [Fact]
     public async Task Criar_DeveGerarIdentificadorAutomaticamente()
     {
-        // Arrange
         using var context = TestDbContextFactory.Criar();
         var controller = new PessoasController(context);
 
-        // Act
         var resposta = await controller.Criar(new CreatePessoaDto { Nome = "Ana", Idade = 30 });
 
-        // Assert
         var criado = Assert.IsType<CreatedAtActionResult>(resposta.Result);
         var pessoa = Assert.IsType<PessoaDto>(criado.Value);
         Assert.True(pessoa.Id > 0);
@@ -29,7 +26,6 @@ public class PessoasControllerTests
     [Fact]
     public async Task Deletar_DeveRemoverTodasAsTransacoesDaPessoaEmCascata()
     {
-        // Arrange: uma pessoa com duas transações
         using var context = TestDbContextFactory.Criar();
         var pessoa = new Pessoa { Nome = "Carlos", Idade = 40 };
         context.Pessoas.Add(pessoa);
@@ -43,10 +39,8 @@ public class PessoasControllerTests
 
         var controller = new PessoasController(context);
 
-        // Act
         var resposta = await controller.Deletar(pessoa.Id);
 
-        // Assert
         Assert.IsType<NoContentResult>(resposta);
         Assert.Empty(context.Pessoas);
         Assert.Empty(context.Transacoes); // regra de negócio: exclusão em cascata
