@@ -48,7 +48,7 @@ back-end e o build do front-end a cada alteração enviada ao repositório.
 
 **Consulta de totais**
 
-![Consulta de totais](docs/screenshots/totais.png)
+![Consulta de totais](https://github.com/user-attachments/assets/40519e5f-d074-4927-994b-ecaafc70f6ad)
 
 ## Como executar
 
