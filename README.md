@@ -1,146 +1,86 @@
 # Controle de Gastos Residenciais
 
-![CI](https://github.com/<usuario>/<repo>/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/nicoladeveloper/GastosResiduaisAdvanced/actions/workflows/ci.yml/badge.svg)
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-banco%20local-003B57?logo=sqlite&logoColor=white)
+![xUnit](https://img.shields.io/badge/xUnit-testes%20automatizados-blueviolet)
 
-Sistema simples de controle de gastos residenciais, com cadastro de pessoas,
-cadastro de transações (receitas/despesas) e consulta de totais.
+Sistema de controle de gastos residenciais. Permite cadastrar as
+pessoas da casa, registrar as transações de cada uma (receitas e despesas)
+e consultar os totais, tudo em uma interface única e direta.
 
-- **Back-end:** .NET 8 (ASP.NET Core Web API) + Entity Framework Core + SQLite
-- **Front-end:** React + TypeScript (Vite)
-- **Persistência:** banco SQLite em arquivo (`gastos.db`), então os dados
-  continuam existindo após fechar a aplicação.
+## Sobre o projeto
 
-```
-gastos-residenciais/
-├── start.sh                        # Sobe back-end + front-end com um único comando
-├── backend/
-│   ├── GastosResidenciais.sln
-│   ├── GastosResidenciais.Api/      # API .NET
-│   │   ├── Models/                  # Entidades (Pessoa, Transacao, TipoTransacao)
-│   │   ├── DTOs/                    # Objetos de entrada/saída da API
-│   │   ├── Data/                    # AppDbContext (EF Core)
-│   │   ├── Controllers/             # PessoasController, TransacoesController, RelatoriosController
-│   │   ├── Middleware/              # Tratamento global de exceções
-│   │   └── Program.cs               # Configuração (CORS, Swagger, banco de dados)
-│   └── GastosResidenciais.Api.Tests/  # Testes automatizados (xUnit + EF Core InMemory)
-└── frontend/
-    └── src/
-        ├── api/                    # Camada de comunicação com a API
-        ├── types/                  # Tipos TypeScript (espelham os DTOs)
-        ├── components/             # PessoaForm, PessoaList, TransacaoForm, TransacaoList, Totais
-        └── App.tsx                 # Navegação entre as três seções (Pessoas / Transações / Totais)
-```
+A ideia é ter um livro-caixa digital para uso doméstico: cada pessoa da
+residência tem seu próprio histórico de movimentações, e ao final é
+possível ver quanto cada uma recebeu, gastou e qual o saldo — além do
+total geral da casa. Os dados ficam salvos em um banco local, então nada
+se perde ao fechar a aplicação.
 
-## Regras de negócio implementadas
+Regras importantes que o sistema aplica automaticamente: ao excluir uma
+pessoa, todas as suas transações são removidas junto; e pessoas menores
+de idade só podem ter despesas cadastradas em seu nome, nunca receitas.
 
-1. **Pessoas**: criação, listagem e exclusão. Identificador único gerado
-   automaticamente pelo banco (auto-increment).
-2. **Exclusão em cascata**: ao excluir uma pessoa, todas as suas transações
-   são apagadas junto (configurado em `AppDbContext` com `DeleteBehavior.Cascade`).
-3. **Transações**: criação e listagem (sem edição/exclusão, conforme especificação).
-4. **Menor de idade**: se a pessoa informada tiver menos de 18 anos, somente
-   transações do tipo **Despesa** podem ser cadastradas para ela. Essa regra é
-   validada no back-end (`TransacoesController`) e também refletida no
-   formulário do front-end, para orientar o usuário antes mesmo do envio.
-5. **Pessoa inexistente**: o `PessoaId` informado em uma transação precisa
-   existir previamente no cadastro; caso contrário a API retorna erro 400.
-6. **Totais**: para cada pessoa são calculados o total de receitas, o total
-   de despesas e o saldo (receitas − despesas); ao final é exibido o total
-   geral somando todas as pessoas.
+## Tecnologias
+
+O back-end é construído em .NET 8 com ASP.NET Core Web API, Entity
+Framework Core para acesso a dados e um banco SQLite em arquivo. O
+front-end é feito em React com TypeScript, usando Vite como ferramenta
+de build. Os testes automatizados do back-end usam xUnit com o provider
+InMemory do Entity Framework, e o projeto conta com um pipeline de
+integração contínua no GitHub Actions, que valida o build e os testes do
+back-end e o build do front-end a cada alteração enviada ao repositório.
+
+## Capturas de tela
+
+**Cadastro de pessoas**
+
+![Cadastro de pessoas](https://github.com/user-attachments/assets/6700dd39-b1fa-49cf-8257-6597143c5a8d)
+
+**Cadastro de transações**
+
+![Cadastro de transações](https://github.com/user-attachments/assets/1ef65c49-ca08-484c-9a27-bdb5a82a10c8)
+
+**Consulta de totais**
+
+![Consulta de totais](https://github.com/user-attachments/assets/40519e5f-d074-4927-994b-ecaafc70f6ad)
 
 ## Como executar
 
-### Pré-requisitos
+É necessário ter o SDK do .NET 8 e o Node.js instalados na máquina.
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 18+](https://nodejs.org/)
+Existe um script que sobe o back-end e o front-end juntos com um único
+comando, disponível na raiz do projeto (`start.sh`, para Mac/Linux/WSL).
+Em ambientes Windows sem WSL, o mais simples é abrir dois terminais: um
+para o back-end, entrando na pasta do projeto da API e executando o
+restore e o run do .NET; outro para o front-end, entrando na pasta
+`frontend` e executando a instalação de dependências seguida do comando
+de desenvolvimento do Vite.
 
-### Opção rápida (um único comando)
-
-```bash
-./start.sh
-```
-
-Sobe o back-end em `http://localhost:5000` e o front-end em `http://localhost:5173`
-simultaneamente. `Ctrl+C` encerra os dois processos.
-
-### Back-end (manual)
-
-```bash
-cd backend/GastosResidenciais.Api
-dotnet restore
-dotnet run
-```
-
-A API sobe em `http://localhost:5000` (Swagger disponível em `/swagger`).
-Na primeira execução, o arquivo `gastos.db` (SQLite) e as tabelas são criados
-automaticamente — não é necessário rodar migrations manualmente.
-
-### Front-end
-
-Em outro terminal:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-A aplicação abre em `http://localhost:5173` e já aponta para a API em
-`http://localhost:5000/api` (pode ser customizado copiando `.env.example`
-para `.env` e ajustando `VITE_API_URL`).
+Por padrão, o back-end sobe em `localhost:5000` (com o Swagger disponível
+em `/swagger`) e o front-end em `localhost:5173`, já apontando para a API
+local. Na primeira execução, o banco SQLite e suas tabelas são criados
+automaticamente, sem necessidade de configuração adicional.
 
 ## Testes automatizados
 
-O projeto `GastosResidenciais.Api.Tests` cobre as regras de negócio da especificação
-usando xUnit + o provider "InMemory" do EF Core (não precisa de banco real):
+O projeto de testes cobre as regras de negócio da aplicação: geração
+automática de identificadores, exclusão em cascata de transações ao
+remover uma pessoa, rejeição de receitas para menores de idade, aceitação
+de despesas para menores de idade, rejeição de transações vinculadas a
+uma pessoa inexistente, e o cálculo correto dos totais — incluindo casos
+de saldo negativo e pessoas sem nenhuma transação registrada. Os testes
+podem ser executados a partir da pasta do back-end.
 
-```bash
-cd backend
-dotnet test
-```
+## Integração contínua
 
-Cenários cobertos: geração automática de Id, exclusão em cascata de transações ao
-excluir uma pessoa, transação rejeitada para menor de idade com receita, transação
-aceita para menor de idade com despesa, rejeição de `PessoaId` inexistente, e o
-cálculo de totais (por pessoa e geral, incluindo saldo negativo e pessoa sem
-transações).
-
-## Nota sobre complexidade algorítmica
-
-Nem toda operação pode (ou deve) ser O(1):
-
-- **Criar/buscar/excluir uma pessoa ou transação por Id**: O(1) amortizado, via
-  índice da chave primária.
-- **Listar pessoas/transações**: O(n) — é inerente a devolver n itens.
-- **Calcular totais** (`RelatoriosController`): O(n) na quantidade de transações,
-  pois cada uma precisa ser somada pelo menos uma vez. Seria possível reduzir a
-  leitura para O(1) mantendo um saldo já calculado por pessoa e atualizando-o a
-  cada nova transação (denormalização), mas isso troca simplicidade e
-  consistência garantida por performance — não compensa na escala de um
-  controle de gastos residencial. Optou-se deliberadamente por O(n) simples e
-  correto.
-
-## Endpoints da API
-
-| Método | Rota                     | Descrição                              |
-|--------|--------------------------|-----------------------------------------|
-| GET    | `/api/pessoas`           | Lista pessoas cadastradas               |
-| POST   | `/api/pessoas`           | Cadastra uma pessoa                     |
-| DELETE | `/api/pessoas/{id}`      | Remove uma pessoa (e suas transações)   |
-| GET    | `/api/transacoes`        | Lista transações (filtro opcional `?pessoaId=`) |
-| POST   | `/api/transacoes`        | Cadastra uma transação                  |
-| GET    | `/api/relatorios/totais` | Totais por pessoa + total geral         |
-
-## Integração Contínua (CI)
-
-O workflow em `.github/workflows/ci.yml` roda a cada push/PR para a `master`,
-com dois jobs independentes em paralelo:
-
-- **backend**: `dotnet restore` → `dotnet build` → `dotnet test`
-  (`GastosResidenciais.Api.Tests`), usando .NET 8.
-- **frontend**: `npm ci` → `npm run build` (`tsc -b && vite build`), cobrindo
-  também o type-check do TypeScript.
-
-Basta ajustar `<usuario>/<repo>` no badge no topo deste arquivo depois de
-subir o projeto para o GitHub.
+A cada push ou pull request enviado para a branch principal, o GitHub
+Actions executa automaticamente dois processos em paralelo: um valida o
+back-end, restaurando as dependências, compilando e rodando a suíte de
+testes; o outro valida o front-end, instalando as dependências e gerando
+o build de produção, o que também cobre a checagem de tipos do
+TypeScript. O selo no topo deste documento reflete o status da execução
+mais recente.
