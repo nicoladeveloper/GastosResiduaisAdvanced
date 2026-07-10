@@ -44,7 +44,7 @@ back-end e o build do front-end a cada alteração enviada ao repositório.
 
 **Cadastro de transações**
 
-![Cadastro de transações](docs/screenshots/cadastro-transacoes.png)
+![Cadastro de transações](https://github.com/user-attachments/assets/1ef65c49-ca08-484c-9a27-bdb5a82a10c8)
 
 **Consulta de totais**
 
