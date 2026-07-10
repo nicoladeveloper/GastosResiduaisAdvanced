@@ -1,0 +1,269 @@
+.app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----- Cabeçalho ----- */
+
+.cabecalho {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  color: #f4f6ee;
+  padding: 2.5rem 1.5rem 2rem;
+}
+
+.cabecalho-conteudo {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.cabecalho-eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #cfe0c9;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.cabecalho h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.cabecalho p {
+  margin: 0;
+  color: #d8e3d1;
+  max-width: 620px;
+}
+
+/* ----- Navegação por abas ----- */
+
+.abas {
+  max-width: 960px;
+  width: 100%;
+  margin: -1.1rem auto 0;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.aba {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 0.65rem 1.3rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+}
+
+.aba--ativa {
+  color: var(--color-primary-dark);
+  background: var(--color-surface);
+  box-shadow: 0 -2px 0 var(--color-primary) inset;
+}
+
+/* ----- Conteúdo geral ----- */
+
+.conteudo {
+  flex: 1;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.secao-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .secao-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cartao {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+  box-shadow: var(--shadow-card);
+}
+
+.cartao--largo {
+  max-width: none;
+}
+
+/* ----- Formulários ----- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-row label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.form-row input,
+.form-row select {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--color-ink);
+}
+
+.dica {
+  font-size: 0.8rem;
+  color: var(--color-warn-text);
+  background: var(--color-warn-bg);
+  padding: 0.4rem 0.55rem;
+  border-radius: 4px;
+  margin-top: 0.3rem;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--perigo {
+  background: transparent;
+  color: var(--color-negative);
+  border: 1px solid var(--color-negative);
+}
+
+.btn--pequeno {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.mensagem-erro {
+  color: var(--color-negative);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.mensagem-erro--bloco {
+  background: #fbe9e4;
+  border: 1px solid var(--color-negative);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+}
+
+.texto-vazio {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* ----- Tabela estilo livro-caixa (linhas horizontais como um razão contábil) ----- */
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th {
+  text-align: left;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  border-bottom: 2px solid var(--color-ink);
+  padding: 0.5rem 0.6rem;
+}
+
+.tabela td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tabela .col-id {
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+  width: 3rem;
+}
+
+.tabela .col-valor {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.valor--positivo {
+  color: var(--color-positive);
+  font-weight: 600;
+}
+
+.valor--negativo {
+  color: var(--color-negative);
+  font-weight: 600;
+}
+
+.etiqueta {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.etiqueta--receita {
+  background: #e1efe3;
+  color: var(--color-positive);
+}
+
+.etiqueta--despesa {
+  background: #f4e2dc;
+  color: var(--color-negative);
+}
+
+.etiqueta--aviso {
+  background: var(--color-warn-bg);
+  color: var(--color-warn-text);
+}
+
+.tabela--totais tfoot .linha-total-geral td {
+  border-top: 3px double var(--color-ink);
+  border-bottom: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding-top: 0.8rem;
+}
