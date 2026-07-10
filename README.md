@@ -36,8 +36,6 @@ back-end e o build do front-end a cada alteração enviada ao repositório.
 
 ## Capturas de tela
 
-*(espaço reservado — adicione aqui os prints da interface)*
-
 **Cadastro de pessoas**
 
 ![Cadastro de pessoas](https://github.com/user-attachments/assets/6700dd39-b1fa-49cf-8257-6597143c5a8d)
