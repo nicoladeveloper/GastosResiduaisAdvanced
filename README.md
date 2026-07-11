@@ -12,6 +12,13 @@ Sistema de controle de gastos residenciais. Permite cadastrar as
 pessoas da casa, registrar as transações de cada uma (receitas e despesas)
 e consultar os totais, tudo em uma interface única e direta.
 
+**link ao vivo:** [gastos-residuais-advanced.vercel.app](https://gastos-residuais-advanced.vercel.app)
+
+> O back-end está hospedado no plano gratuito da Render, que hiberna após
+> um período de inatividade. Se a aplicação estiver "dormindo", a primeira
+> requisição pode levar até 50 segundos para responder — as seguintes são
+> instantâneas.
+
 ## Sobre o projeto
 
 A ideia é ter um livro-caixa digital para uso doméstico: cada pessoa da
@@ -50,7 +57,9 @@ back-end e o build do front-end a cada alteração enviada ao repositório.
 
 ## Como executar
 
-É necessário ter o SDK do .NET 8 e o Node.js instalados na máquina.
+A forma mais rápida de conhecer o projeto é acessar a demo ao vivo,
+linkada no topo deste documento. Para rodar localmente, é necessário ter
+o SDK do .NET 8 e o Node.js instalados na máquina.
 
 Existe um script que sobe o back-end e o front-end juntos com um único
 comando, disponível na raiz do projeto (`start.sh`, para Mac/Linux/WSL).
